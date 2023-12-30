@@ -1,0 +1,61 @@
+{
+  "dashboard": {
+    "title": "Namespace: {{Namespace}} Metrics",
+    "rows": [
+      {
+        "title": "CPU Usage",
+        "panels": [
+          {
+	    "type": "timeseries",
+            "targets": [
+              {
+                "expr": "sum(rate(container_cpu_usage_seconds_total{namespace='{{Namespace}}'}[1m])) by (pod)"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Memory Usage",
+        "panels": [
+          {
+            "type": "timeseries",
+            "targets": [
+              {
+                "expr": "sum(container_memory_usage_bytes{namespace='{{Namespace}}'}) by (pod)"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Disk Mapped Size",
+        "panels": [
+          {
+            "type": "timeseries",
+            "targets": [
+              {
+                "expr": "sum(container_memory_mapped_file{namespace='{{Namespace}}'}) by (pod)"
+              }
+            ]
+          }
+        ]
+      },
+	  {
+        "title": "Loki Logs",
+        "panels": [
+          {
+            "type": "logs",
+            "mode": "text",
+            "targets": [
+              {
+                "expr": "{namespace=\"{{Namespace}}\"}",
+                "datasource": "Loki"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

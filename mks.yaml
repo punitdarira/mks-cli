@@ -1,0 +1,4 @@
+app: capstone-image
+image: nginx
+replica: 5
+port: 80
